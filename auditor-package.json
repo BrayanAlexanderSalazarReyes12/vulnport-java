@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0",
+  "id": "vulnport-java",
+  "name": "VulnPort Java",
+  "kind": "web-application",
+  "language": "java",
+  "framework": ["servlet", "jsp"],
+  "runtime": {
+    "javaVersion": "8",
+    "server": "tomcat",
+    "serverVersion": "9"
+  },
+  "entrypoints": [
+    {
+      "type": "application",
+      "path": "src/main/webapp/index.jsp"
+    },
+    {
+      "type": "web-config",
+      "path": "src/main/webapp/WEB-INF/web.xml"
+    },
+    {
+      "type": "source-root",
+      "path": "src/main/java"
+    }
+  ],
+  "build": {
+    "tool": "maven",
+    "manifest": "pom.xml",
+    "command": "mvn clean package",
+    "artifact": "target/vulnport-java.war"
+  },
+  "scan": {
+    "roots": [
+      "src/main/java",
+      "src/main/webapp"
+    ],
+    "include": [
+      "**/*.java",
+      "**/*.jsp",
+      "**/*.xml",
+      "pom.xml"
+    ],
+    "exclude": [
+      "target/**",
+      ".git/**"
+    ]
+  },
+  "groundTruth": {
+    "manifest": "LAB_MANIFEST.md"
+  },
+  "lab": {
+    "intentionallyVulnerable": true,
+    "safeForProduction": false
+  }
+}
